@@ -27,6 +27,19 @@ function setTwitterFollowers(num) {
   readParams().getRange("B5").setValue(num);
 }
 
-function getTwitterFollowers(num) {
+function getTwitterFollowers() {
   return (parseInt(readParams().getRange("B5").getValue()));
+}
+
+function getTelegramSubcribers() {
+  return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName("Subscribers").getDataRange().getNumRows();
+}
+
+function getFBLikes() {
+  return (parseInt(readParams().getRange("B6").getValue()));
+}
+
+
+function getAllUsers() {
+  return getTelegramSubcribers()+getFBLikes()+getTwitterFollowers();
 }
