@@ -28,7 +28,7 @@ function tweetLodi() {
 }
 
 function tweetUsers() {
-  var tweet = "Ogni mattina siamo in " + getAllUsers() + " insieme a pregare su tutte le piattaforme!\u000aVisita il sito http://bit.ly/unsalmoalgiorno per saperne di più"
+  var tweet = "Ogni mattina siamo in " + getAllUsers() + " a pregare insieme sul Salmo da tutte le piattaforme!\u000aVisita il sito http://bit.ly/unsalmoalgiorno per saperne di più"
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
   try {
