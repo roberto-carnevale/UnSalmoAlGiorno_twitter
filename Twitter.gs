@@ -1,21 +1,34 @@
 function tweetLodi() {
-  let verse = lastVerse();
+  
+  let dayObj = getLiturgicDay();
+  let dayName = "";
+  let stringHoly = "";
+  if (dayObj.name) {dayName=dayObj.name;}
+  if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
 
-  var sog = new SalmiOnGoogle();
-  tweet = sog.niceVerseForTwitter(verse);
+  let tweetPsalm = dayTempo[dayObj.tempo] + "  #Preghiamo "+stringsTempo[dayObj.tempo]+stringHoly+dayName+"  "+dayColor[dayObj.color]+"\u000a \u000a";
+  let tweetDay = lastVerseFull().toString().replace(/###/g,"\u000a");
 
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
   try {
     var service = new Twitterlib.OAuth(props);                                                   //Attempt Connection with Service
 
-    let response = service.sendTweet(tweet, null, null);
-    if (response) {                                                                            //If response is detected... 
-      //console.log(response);
-      setTwitterFollowers(response.user.followers_count);
-    }
+    if (tweetPsalm.length < 280) {
+      let response = service.sendTweet(tweetPsalm, null, null);
+      if (response) {                                                                            //If response is detected... 
+        //console.log(response);
+        setTwitterFollowers(response.user.followers_count);
+      }
+
+      response = service.sendTweet(tweetDay, null, null);
+      if (response) {                                                                            //If response is detected... 
+        //console.log(response);
+        setTwitterFollowers(response.user.followers_count);
+      }
+    } else {MailApp.sendEmail("kn35roby@gmail.com","Twitter length exceded!", err.toString() + "\r\n" + err.stack.toString());}
   }
-  catch (err) {
+  catch (err) { 
     MailApp.sendEmail("kn35roby@gmail.com","Twitter Exception", err.toString() + "\r\n" + err.stack.toString());
   }
 }
