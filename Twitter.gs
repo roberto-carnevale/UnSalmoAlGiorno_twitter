@@ -6,8 +6,8 @@ function tweetLodi() {
   if (dayObj.name) {dayName=dayObj.name;}
   if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
 
-  let tweetPsalm = dayTempo[dayObj.tempo] + "  #Preghiamo "+stringsTempo[dayObj.tempo]+stringHoly+dayName+"  "+dayColor[dayObj.color]+"\u000a \u000a";
-  let tweetDay = lastVerseFull().toString().replace(/###/g,"\u000a");
+  let tweetDay = getdayFull().toString().replace(/###/g,"\u000a")+"  "+dayColor[dayObj.color]+"\u000a \u000a";
+  let tweetPsalm = "#Preghiamo\u000a"+lastVerseFull().toString().replace(/###/g,"\u000a");
 
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
@@ -17,15 +17,13 @@ function tweetLodi() {
     if (tweetPsalm.length < 280) {
       let response = service.sendTweet(tweetPsalm, null, null);
       if (response) {                                                                            //If response is detected... 
-        //console.log(response);
+        Logger.log(response);
+        MailApp.sendEmail("kn35roby@gmail.com","Twitter Response", Logger.getLog());
         setTwitterFollowers(response.user.followers_count);
       }
-
+      service.
       response = service.sendTweet(tweetDay, null, null);
-      if (response) {                                                                            //If response is detected... 
-        //console.log(response);
-        setTwitterFollowers(response.user.followers_count);
-      }
+
     } else {MailApp.sendEmail("kn35roby@gmail.com","Twitter length exceded!", err.toString() + "\r\n" + err.stack.toString());}
   }
   catch (err) { 
@@ -34,7 +32,7 @@ function tweetLodi() {
 }
 
 function tweetUsers() {
-  var tweet = "Ogni mattina siamo in " + getAllUsers() + " a pregare insieme, sullo stesso Salmo, da tutte le piattaforme!\u000aVisita il sito http://bit.ly/unsalmoalgiorno per saperne di più"
+  var tweet = getWeekMsg().toString().replace(/<TOT>/, sendTotalUser)
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
   try {

@@ -50,14 +50,16 @@ const dayTempo = {
   Q:EmojiHolyCross,
   N:EmojiComet,
   P:EmojiHolySpirit,
-  O:""
+  O:"",
+  T:EmojiPray
 }
 
 const stringsHoly = {
   S: "nella Solennità di ",
   F: "nella Festa di ",
   M: "in Memoria di ",
-  N: " "
+  N: " ",
+  T: "nel Triduo Pasquale "
 }
 
 const stringsTempo = {
@@ -65,5 +67,6 @@ const stringsTempo = {
   Q: "in tempo di Quaresima ",
   P: "nel tempo Pasquale ",
   N: "in tempo Natalizio ",
-  O: "nel tempo ordinario "
+  O: "nel tempo ordinario ",
+  T: "nel Triduo Pasquale"
 }
