@@ -70,3 +70,12 @@ const stringsTempo = {
   O: "nel tempo ordinario ",
   T: "nel Triduo Pasquale"
 }
+const stringColorMailingList= {
+  G:"Oggi paramenti verdi",
+  V:"Oggi paramenti viola",
+  W:"Oggi paramenti bianchi",
+  R:"Oggi paramenti rossi",
+  S:"Oggi paramenti rosa",
+  B:"Oggi paramenti neri",
+  A:"Oggi preghiera Mariana",
+}
