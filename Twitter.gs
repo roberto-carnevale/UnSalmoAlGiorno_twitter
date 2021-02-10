@@ -16,23 +16,23 @@ function tweetLodi() {
     // if too long for tweeting
     if (tweetPsalm.length + tweetDay.length > 260) {
       //tweet the psalm
-      let response = tweetThis(tweetPsalm, null);
+      let response = tweetThis(service, tweetPsalm, null);
       if (response) {                                                                            //If response is detected... 
         setTwitterFollowers(response.user.followers_count);
       }
       //add caption as response
-      tweetThis( '@unsalmoalgiorno\u000a' +tweetDay, { in_reply_to_status_id: response.id_str });
+      tweetThis(service,  '@unsalmoalgiorno\u000a' +tweetDay, { in_reply_to_status_id: response.id_str });
 
     } else {
       //if short enough tweet all together
-      tweetThis(tweetDay + tweetPsalm, null);
+      tweetThis(service, tweetDay + tweetPsalm, null);
     }
   }
   catch (err) { 
     MailApp.sendEmail("kn35roby@gmail.com","Twitter Exception - Auth/body", err.toString() + "\r\n" + err.stack.toString());
   }
 }
-function tweetThis(status, options) {
+function tweetThis(service, status, options) {
   try {
     Logger.clear();
     response = service.sendTweet( status, options, null);
