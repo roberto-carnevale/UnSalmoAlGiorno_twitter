@@ -47,3 +47,15 @@ function getAllUsers() {
 function getLiturgicDay() {
   return JSON.parse(readParams().getRange("B7").getValue());
 }
+
+function lastVerseFull() {
+  return readParams().getRange("B8").getValue();
+}
+
+function getdayFull() {
+  return readParams().getRange("B9").getValue();
+}
+
+function getWeekMsg () {
+  return readParams().getRange("B10").getValue();
+}
