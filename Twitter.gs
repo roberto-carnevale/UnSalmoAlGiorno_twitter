@@ -7,7 +7,7 @@ function tweetLodi() {
   if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
 
   let tweetDay = dayColor[dayObj.color]+"  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\u000a"+getdayFull().toString().replace(/###/g,"\u000a");
-  let tweetPsalm = "\u000a#Preghiamo\u000a"+lastVerseFull().toString().replace(/###/g,"\u000a");
+  let tweetPsalm = "\u000a\u000a#Preghiamo\u000a"+lastVerseFull().toString().replace(/###/g,"\u000a");
 
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
