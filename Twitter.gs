@@ -47,7 +47,7 @@ function tweetThis(service, status, options) {
 
 
 function tweetUsers() {
-  var tweet = getWeekMsg().toString().replace(/<TOT>/, sendTotalUser).replace(/###/g,"\u000a");
+  var tweet = getWeekMsg().toString().replace(/<TOT>/, getAllUsers()).replace(/###/g,"\u000a");
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
   try {
