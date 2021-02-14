@@ -77,7 +77,7 @@ function tweetLodiwithPhoto() {
 
     } else {
       //if short enough tweet all together
-      let res = service.uploadMedia(media, "Un Salmo al giorno");
+      let res = service.uploadMedia(media, "");
       tweetThis(service, tweetDay + tweetPsalm, {'media_ids': res.media_id_string});
     }
   }
