@@ -1,12 +1,14 @@
 {
   "timeZone": "America/New_York",
-  "dependencies": {
-    "libraries": [{
-      "userSymbol": "Twitterlib",
-      "libraryId": "11dB74uW9VLpgvy1Ax3eBZ8J7as0ZrGtx4BPw7RKK-JQXyAJHBx98pY-7",
-      "version": "25"
-    }]
-  },
   "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8"
+  "runtimeVersion": "V8",
+  "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "Twitterlib",
+        "libraryId": "11dB74uW9VLpgvy1Ax3eBZ8J7as0ZrGtx4BPw7RKK-JQXyAJHBx98pY-7",
+        "version": "25"
+      }
+    ]
+  }
 }
