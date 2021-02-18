@@ -105,16 +105,13 @@ function tweetUsers() {
   var tweet = getWeekMsg().toString().replace(/<TOT>/, getAllUsers()).replace(/###/g,"\u000a");
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
+  
+  let file = DriveApp.getFolderById(ImageFolder).getFilesByName("candele.jpg").next().getBlob();
+  
   try {
     var service = new Twitterlib.OAuth(props);                                                   //Attempt Connection with Service
-
-    // if (!service.hasAccess()) {                                                               //If credentials do NOT grant access...
-    //   console.log("Authorization Failed");                                                    //log authentication failure 
-    // } else {                                                                                  //If credentials grant access...   
-    //   console.log("Authentication Successful");
-    // }
-
-    let response = service.sendTweet(tweet, null, null);
+    let res = service.uploadMedia(file, "");
+    let response = tweetThis(service, tweet, {'media_ids': res.media_id_string});
     if (response) {                                                                            //If response is detected... 
       //console.log(response);
       setTwitterFollowers(response.user.followers_count);
@@ -122,5 +119,25 @@ function tweetUsers() {
   }
   catch (err) {
     MailApp.sendEmail("kn35roby@gmail.com","Twitter Exception - Total users", err.toString() + "\r\n" + err.stack.toString());
+  }
+}
+
+
+function tweetCompieta() {
+  var props = PropertiesService.getScriptProperties();                                      //New Properties Service
+  props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
+
+  // gets data
+  let file = DriveApp.getFolderById(ImageFolder).getFilesByName("compieta.jpg").next().getBlob();
+  let compieta = getCompietaFull().toString().replace(/###/g,"\u000a");
+
+  try {
+    var service = new Twitterlib.OAuth(props);                                                   //Attempt Connection with Service
+    // if too long for tweeting
+    let res = service.uploadMedia(file, "");
+    tweetThis(service, compieta, {'media_ids': res.media_id_string});
+  }
+  catch (err) { 
+    MailApp.sendEmail("kn35roby@gmail.com","Twitter Exception - Compieta", err.toString() + "\r\n" + err.stack.toString());
   }
 }
