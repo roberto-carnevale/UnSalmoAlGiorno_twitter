@@ -1,10 +1,6 @@
 function tweetLodi() {
   
   let dayObj = getLiturgicDay();
-  let dayName = "";
-  let stringHoly = "";
-  if (dayObj.name) {dayName=dayObj.name;}
-  if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
 
   let tweetDay = dayColor[dayObj.color]+"  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\u000a"+getdayFull().toString().replace(/###/g,"\u000a");
   let tweetPsalm = "\u000a\u000a#Preghiamo\u000a"+lastVerseFull().toString().replace(/###/g,"\u000a");
@@ -56,17 +52,22 @@ function tweetLodiwithPhoto() {
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
 
   //image treatment
-  var media = null
-  let findfile = DriveApp.getFolderById(ImageFolder).getFilesByName(dayObj.special+".jpg");
-  if (findfile.hasNext()) {media=findfile.next().getBlob();}
-  else {media = DriveApp.getFolderById(ImageFolder).getFilesByName("brand.jpg").next().getBlob()}
+  var file = null
+  let folder = DriveApp.getFolderById(ImageFolder);
+  
+  let findfile = folder.getFilesByName(dayObj.special+".jpg");
+  if (findfile.hasNext()) {
+    file=findfile.next().getBlob();
+  } else {
+    file=folder.getFilesByName(dayObj.baseImage).next().getBlob();
+  }
 
   try {
     var service = new Twitterlib.OAuth(props);                                                   //Attempt Connection with Service
     // if too long for tweeting
     if (tweetPsalm.length + tweetDay.length > 260) {
       // tweet media
-      let res = service.uploadMedia(media, null);
+      let res = service.uploadMedia(file, null);
       //tweet the psalm
       let response = tweetThis(service, tweetPsalm, {'media_ids': res.media_id_string});
       if (response) {                                                                            //If response is detected... 
@@ -77,7 +78,7 @@ function tweetLodiwithPhoto() {
 
     } else {
       //if short enough tweet all together
-      let res = service.uploadMedia(media, "");
+      let res = service.uploadMedia(file, "");
       tweetThis(service, tweetDay + tweetPsalm, {'media_ids': res.media_id_string});
     }
   }
