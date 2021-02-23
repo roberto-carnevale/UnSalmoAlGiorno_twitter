@@ -3,7 +3,7 @@ function tweetLodi() {
   let dayObj = getLiturgicDay();
 
   let tweetDay = dayColor[dayObj.color]+"  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\u000a"+getdayFull().toString().replace(/###/g,"\u000a");
-  let tweetPsalm = "\u000a\u000a#Preghiamo\u000a"+lastVerseFull().toString().replace(/###/g,"\u000a");
+  let tweetPsalm = lastVerseFull().toString().replace(/###/g,"\u000a");
 
   var props = PropertiesService.getScriptProperties();                                      //New Properties Service
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
@@ -17,11 +17,11 @@ function tweetLodi() {
         setTwitterFollowers(response.user.followers_count);
       }
       //add caption as response
-      tweetThis(service,  '@unsalmoalgiorno\u000a' +tweetDay, { in_reply_to_status_id: response.id_str });
+      tweetThis(service,  '@unsalmoalgiorno\u000a#Preghiamo insieme!\u000a' +tweetDay, { in_reply_to_status_id: response.id_str });
 
     } else {
       //if short enough tweet all together
-      tweetThis(service, tweetDay + tweetPsalm, null);
+      tweetThis(service, tweetDay + "\u000a\u000a#Preghiamo\u000a" +tweetPsalm, null);
     }
   }
   catch (err) { 
