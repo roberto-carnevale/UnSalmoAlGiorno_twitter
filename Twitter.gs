@@ -129,7 +129,7 @@ function tweetCompieta() {
 
   // gets data
   let file = DriveApp.getFolderById(ImageFolder).getFilesByName("compieta.jpg").next().getBlob();
-  let compieta = getCompietaFull().toString().replace(/###/g,"\u000a");
+  let compieta = getCompietaFull().toString().replace(/###/g,"\u000a")+"\u000a \u000aBuonanotte 🛌";
 
   try {
     var service = new Twitterlib.OAuth(props);                                                   //Attempt Connection with Service
