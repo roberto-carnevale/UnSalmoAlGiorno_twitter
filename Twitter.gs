@@ -10,7 +10,7 @@ function tweetLodi() {
   try {
     var service = new Twitterlib.OAuth(props);                                                   //Attempt Connection with Service
     // if too long for tweeting
-    if (tweetPsalm.length + tweetDay.length > 260) {
+    if (tweetPsalm.length + tweetDay.length > 260  || dayObj.text) {
       //tweet the psalm
       let response = tweetThis(service, tweetPsalm, null);
       if (response) {                                                                            //If response is detected... 
@@ -18,7 +18,9 @@ function tweetLodi() {
       }
       //add caption as response
       tweetThis(service,  '@unsalmoalgiorno\u000a#Preghiamo insieme!\u000a' +tweetDay, { in_reply_to_status_id: response.id_str });
-
+      if (dayObj.text) {
+        tweetThis(service,  '@unsalmoalgiorno\u000a' +dayObj.text.toString().replace(/###/g,"\u000a"), { 'in_reply_to_status_id': response.id_str  });
+      }
     } else {
       //if short enough tweet all together
       tweetThis(service, tweetDay + "\u000a\u000a#Preghiamo\u000a" +tweetPsalm, null);
