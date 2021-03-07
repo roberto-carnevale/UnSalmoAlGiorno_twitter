@@ -67,7 +67,7 @@ function tweetLodiwithPhoto() {
   try {
     var service = new Twitterlib.OAuth(props);                                                   //Attempt Connection with Service
     // if too long for tweeting
-    if (tweetPsalm.length + tweetDay.length > 260) {
+    if (tweetPsalm.length + tweetDay.length > 260 || dayObj.text) {
       // tweet media
       let res = service.uploadMedia(file, null);
       //tweet the psalm
@@ -77,6 +77,7 @@ function tweetLodiwithPhoto() {
       }
       //add caption as response
       tweetThis(service,  '@unsalmoalgiorno\u000a' +tweetDay, { in_reply_to_status_id: response.id_str });
+      tweetThis(service,  '@testunsalmoalg1\u000a' +dayObj.text.toString().replace(/###/g,"\u000a"), { 'in_reply_to_status_id': response.id_str  });
 
     } else {
       //if short enough tweet all together
