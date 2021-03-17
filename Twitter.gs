@@ -3,7 +3,7 @@ function tweetThis(service, status, options) {
     Logger.clear();
     response = service.sendTweet( status, options, null);
     Logger.log(response);
-    MailApp.sendEmail("kn35roby@gmail.com","Twitter Response", Logger.getLog());
+    //MailApp.sendEmail("kn35roby@gmail.com","Twitter Response", Logger.getLog());
     return response;
   }
   catch (err) { 
@@ -86,7 +86,7 @@ function tweetCompieta() {
   props.setProperties(twitterKeys);                                                         //Pass Authentication through Service
 
   // gets data
-  let file = DriveApp.getFolderById(ImageFolder).getFilesByName("compieta.jpg").next().getBlob();
+  let file = DriveApp.getFolderById(ImageFolder).getFilesByName(getCompietaImage()).next().getBlob();
   let compieta = getCompietaFull().toString().replace(/###/g,"\u000a")+"\u000a \u000aBuonanotte 🛌";
 
   try {
