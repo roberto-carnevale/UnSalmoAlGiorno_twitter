@@ -46,7 +46,7 @@ function tweetLodiwithPhoto() {
       //add caption as response
       tweetThis(service,  '@unsalmoalgiorno\u000a' +tweetDay, { in_reply_to_status_id: response.id_str });
       if (dayObj.text) {
-        tweetThis(service,  '@testunsalmoalg1\u000a' +dayObj.text.toString().replace(/###/g,"\u000a"), { 'in_reply_to_status_id': response.id_str  });
+        tweetThis(service,  '@unsalmoalgiorno\u000a' +dayObj.text.toString().replace(/###/g,"\u000a"), { 'in_reply_to_status_id': response.id_str  });
       }
     } else {
       //if short enough tweet all together
