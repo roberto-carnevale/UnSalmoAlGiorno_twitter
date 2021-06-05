@@ -51,11 +51,14 @@ function tweetLodiwithPhoto() {
     } else {
       //if short enough tweet all together
       let res = service.uploadMedia(file, "");
-      tweetThis(service, tweetDay + tweetPsalm, {'media_ids': res.media_id_string});
+      let response = tweetThis(service, tweetDay + tweetPsalm, {'media_ids': res.media_id_string});
+      if (response) {                                                                            //If response is detected... 
+        setTwitterFollowers(response.user.followers_count);
+      }
     }
   }
   catch (err) { 
-    MailApp.sendEmail("kn35roby@gmail.com","Twitter Exception - Auth/body", err.toString() + "\r\n" + err.stack.toString());
+    MailApp.sendEmail("kn35roby@gmail.com","Twitter IT Exception - Auth/body", err.toString() + "\r\n" + err.stack.toString());
   }
 }
 
@@ -76,7 +79,7 @@ function tweetUsers() {
     }
   }
   catch (err) {
-    MailApp.sendEmail("kn35roby@gmail.com","Twitter Exception - Total users", err.toString() + "\r\n" + err.stack.toString());
+    MailApp.sendEmail("kn35roby@gmail.com","Twitter IT Exception - Total users", err.toString() + "\r\n" + err.stack.toString());
   }
 }
 
@@ -96,6 +99,6 @@ function tweetCompieta() {
     tweetThis(service, compieta, {'media_ids': res.media_id_string});
   }
   catch (err) { 
-    MailApp.sendEmail("kn35roby@gmail.com","Twitter Exception - Compieta", err.toString() + "\r\n" + err.stack.toString());
+    MailApp.sendEmail("kn35roby@gmail.com","Twitter IT Exception - Compieta", err.toString() + "\r\n" + err.stack.toString());
   }
 }
